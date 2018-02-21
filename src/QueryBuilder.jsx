@@ -16,6 +16,7 @@ export default class QueryBuilder extends React.Component {
             translations: QueryBuilder.defaultTranslations,
             controlElements: null,
             getOperators: null,
+            getInputType: null,
             onQueryChange: null,
             controlClassnames: null
         };
@@ -38,6 +39,7 @@ export default class QueryBuilder extends React.Component {
                 valueEditor: PropTypes.func
             }),
             getOperators: PropTypes.func,
+            getInputType: PropTypes.func,
             onQueryChange: PropTypes.func,
             controlClassnames: PropTypes.object,
             translations: PropTypes.object
@@ -167,6 +169,7 @@ export default class QueryBuilder extends React.Component {
                 isRuleGroup: this.isRuleGroup.bind(this),
                 controls,
                 getOperators: (...args)=>this.getOperators(...args),
+                getInputType: (...args)=>this.getInputType(...args),
             }
         });
 
@@ -230,8 +233,18 @@ export default class QueryBuilder extends React.Component {
             }
         }
 
-
         return this.props.operators;
+    }
+
+    getInputType(field, operator) {
+        if (this.props.getInputType) {
+            const type = this.props.getInputType(field, operator);
+            if (type) {
+                return type;
+            }
+        }
+
+        return 'text';
     }
 
     onRuleAdd(rule, parentId) {

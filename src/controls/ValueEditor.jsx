@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ValueEditor = (props) => {
-  const {field, operator, value, handleOnChange, title} = props;
+  const {field, operator, value, values, handleOnChange, title, inputType} = props;
 
   if (operator === 'null' || operator === 'notNull') {
     return null;
   }
 
   return (
-    <input type="text"
+    <input type={inputType}
            value={value}
            title={title}
            onChange={e=>handleOnChange(e.target.value)} />

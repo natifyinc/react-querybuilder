@@ -1715,6 +1715,7 @@ var QueryBuilder = function (_React$Component) {
                 translations: QueryBuilder.defaultTranslations,
                 controlElements: null,
                 getOperators: null,
+                getInputType: null,
                 onQueryChange: null,
                 controlClassnames: null
             };
@@ -1738,6 +1739,7 @@ var QueryBuilder = function (_React$Component) {
                     valueEditor: _propTypes2.default.func
                 }),
                 getOperators: _propTypes2.default.func,
+                getInputType: _propTypes2.default.func,
                 onQueryChange: _propTypes2.default.func,
                 controlClassnames: _propTypes2.default.object,
                 translations: _propTypes2.default.object
@@ -1798,6 +1800,9 @@ var QueryBuilder = function (_React$Component) {
                     controls: controls,
                     getOperators: function getOperators() {
                         return _this2.getOperators.apply(_this2, arguments);
+                    },
+                    getInputType: function getInputType() {
+                        return _this2.getInputType.apply(_this2, arguments);
                     }
                 }
             });
@@ -1877,6 +1882,18 @@ var QueryBuilder = function (_React$Component) {
             }
 
             return this.props.operators;
+        }
+    }, {
+        key: 'getInputType',
+        value: function getInputType(field, operator) {
+            if (this.props.getInputType) {
+                var type = this.props.getInputType(field, operator);
+                if (type) {
+                    return type;
+                }
+            }
+
+            return 'text';
         }
     }, {
         key: 'onRuleAdd',
@@ -5458,6 +5475,7 @@ var Rule = function (_React$Component) {
                 fields = _props$schema.fields,
                 controls = _props$schema.controls,
                 getOperators = _props$schema.getOperators,
+                getInputType = _props$schema.getInputType,
                 getLevel = _props$schema.getLevel,
                 classNames = _props$schema.classNames;
 
@@ -5489,7 +5507,8 @@ var Rule = function (_React$Component) {
                     value: value,
                     className: 'rule-value ' + classNames.value,
                     handleOnChange: this.onValueChanged,
-                    level: level
+                    level: level,
+                    inputType: getInputType(field, operator)
                 }),
                 _react2.default.createElement(controls.removeRuleAction, {
                     label: translations.removeRule.label,
@@ -5584,15 +5603,17 @@ var ValueEditor = function ValueEditor(props) {
   var field = props.field,
       operator = props.operator,
       value = props.value,
+      values = props.values,
       handleOnChange = props.handleOnChange,
-      title = props.title;
+      title = props.title,
+      inputType = props.inputType;
 
 
   if (operator === 'null' || operator === 'notNull') {
     return null;
   }
 
-  return _react2.default.createElement('input', { type: 'text',
+  return _react2.default.createElement('input', { type: inputType,
     value: value,
     title: title,
     onChange: function onChange(e) {

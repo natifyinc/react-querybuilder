@@ -13,7 +13,9 @@ export default class Rule extends React.Component {
     }
 
     render() {
-        const {field, operator, value, translations, schema: {fields, controls, getOperators, getLevel, classNames}} = this.props;
+        const {field, operator, value, translations, schema:
+            {fields, controls, getOperators, getInputType, getLevel, classNames}
+        } = this.props;
         var level = getLevel(this.props.id);
         return (
             <div className={`rule ${classNames.rule}`}>
@@ -51,7 +53,8 @@ export default class Rule extends React.Component {
                             value: value,
                             className: `rule-value ${classNames.value}`,
                             handleOnChange: this.onValueChanged,
-                            level: level
+                            level: level,
+                            inputType: getInputType(field, operator),
                         }
                     )
                 }
