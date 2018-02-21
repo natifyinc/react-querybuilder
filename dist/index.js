@@ -1803,6 +1803,9 @@ var QueryBuilder = function (_React$Component) {
                     },
                     getInputType: function getInputType() {
                         return _this2.getInputType.apply(_this2, arguments);
+                    },
+                    getValuesList: function getValuesList() {
+                        return _this2.getValuesList.apply(_this2, arguments);
                     }
                 }
             });
@@ -1859,7 +1862,7 @@ var QueryBuilder = function (_React$Component) {
                 id: 'r-' + (0, _v2.default)(),
                 field: fields[0].name,
                 value: '',
-                operator: operators[0].name
+                operator: (operators[0] || {}).name
             };
         }
     }, {
@@ -1894,6 +1897,18 @@ var QueryBuilder = function (_React$Component) {
             }
 
             return 'text';
+        }
+    }, {
+        key: 'getValuesList',
+        value: function getValuesList(field) {
+            if (this.props.getValuesList) {
+                var valuesList = this.props.getValuesList(field);
+                if (valuesList) {
+                    return valuesList;
+                }
+            }
+
+            return [];
         }
     }, {
         key: 'onRuleAdd',
@@ -5288,6 +5303,7 @@ var RuleGroup = function (_React$Component) {
 
 
             var newRule = createRule();
+
             onRuleAdd(newRule, _this.props.id);
         }, _this.addGroup = function (event) {
             event.preventDefault();
@@ -5476,10 +5492,12 @@ var Rule = function (_React$Component) {
                 controls = _props$schema.controls,
                 getOperators = _props$schema.getOperators,
                 getInputType = _props$schema.getInputType,
+                getValuesList = _props$schema.getValuesList,
                 getLevel = _props$schema.getLevel,
                 classNames = _props$schema.classNames;
 
             var level = getLevel(this.props.id);
+
             return _react2.default.createElement(
                 'div',
                 { className: 'rule ' + classNames.rule },
@@ -5495,7 +5513,7 @@ var Rule = function (_React$Component) {
                     field: field,
                     title: translations.operators.title,
                     options: getOperators(field),
-                    value: operator,
+                    value: operator || getOperators(field)[0].name,
                     className: 'rule-operators ' + classNames.operators,
                     handleOnChange: this.onOperatorChanged,
                     level: level
@@ -5508,7 +5526,8 @@ var Rule = function (_React$Component) {
                     className: 'rule-value ' + classNames.value,
                     handleOnChange: this.onValueChanged,
                     level: level,
-                    inputType: getInputType(field, operator)
+                    inputType: getInputType(field, operator || getOperators(field)[0].name),
+                    valuesList: getValuesList(field)
                 }),
                 _react2.default.createElement(controls.removeRuleAction, {
                     label: translations.removeRule.label,
@@ -5606,11 +5625,27 @@ var ValueEditor = function ValueEditor(props) {
       values = props.values,
       handleOnChange = props.handleOnChange,
       title = props.title,
-      inputType = props.inputType;
+      inputType = props.inputType,
+      valuesList = props.valuesList;
 
 
   if (operator === 'null' || operator === 'notNull') {
     return null;
+  }
+
+  if (inputType === 'select') {
+    console.warn('XXX');
+    return _react2.default.createElement(
+      'select',
+      null,
+      valuesList.map(function (value, index) {
+        return _react2.default.createElement(
+          'option',
+          { key: index, value: value.value },
+          value.text
+        );
+      })
+    );
   }
 
   return _react2.default.createElement('input', { type: inputType,

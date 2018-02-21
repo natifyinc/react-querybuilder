@@ -14,9 +14,10 @@ export default class Rule extends React.Component {
 
     render() {
         const {field, operator, value, translations, schema:
-            {fields, controls, getOperators, getInputType, getLevel, classNames}
+            {fields, controls, getOperators, getInputType, getValuesList, getLevel, classNames}
         } = this.props;
         var level = getLevel(this.props.id);
+
         return (
             <div className={`rule ${classNames.rule}`}>
                 {
@@ -37,7 +38,7 @@ export default class Rule extends React.Component {
                             field: field,
                             title: translations.operators.title,
                             options: getOperators(field),
-                            value: operator,
+                            value: operator || getOperators(field)[0].name,
                             className: `rule-operators ${classNames.operators}`,
                             handleOnChange: this.onOperatorChanged,
                             level: level
@@ -54,7 +55,8 @@ export default class Rule extends React.Component {
                             className: `rule-value ${classNames.value}`,
                             handleOnChange: this.onValueChanged,
                             level: level,
-                            inputType: getInputType(field, operator),
+                            inputType: getInputType(field, operator || getOperators(field)[0].name),
+                            valuesList: getValuesList(field),
                         }
                     )
                 }

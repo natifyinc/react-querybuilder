@@ -170,6 +170,7 @@ export default class QueryBuilder extends React.Component {
                 controls,
                 getOperators: (...args)=>this.getOperators(...args),
                 getInputType: (...args)=>this.getInputType(...args),
+                getValuesList: (...args)=>this.getValuesList(...args),
             }
         });
 
@@ -213,7 +214,7 @@ export default class QueryBuilder extends React.Component {
             id: `r-${uniqueId()}`,
             field: fields[0].name,
             value: '',
-            operator: operators[0].name
+            operator: (operators[0] || {}).name
         };
     }
 
@@ -245,6 +246,17 @@ export default class QueryBuilder extends React.Component {
         }
 
         return 'text';
+    }
+
+    getValuesList(field) {
+        if (this.props.getValuesList) {
+            const valuesList = this.props.getValuesList(field);
+            if (valuesList) {
+                return valuesList;
+            }
+        }
+
+        return [];
     }
 
     onRuleAdd(rule, parentId) {

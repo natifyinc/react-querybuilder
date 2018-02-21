@@ -111,6 +111,7 @@ export default class RuleGroup extends React.Component {
         const {createRule, onRuleAdd} = this.props.schema;
 
         const newRule = createRule();
+
         onRuleAdd(newRule, this.props.id)
     }
 
