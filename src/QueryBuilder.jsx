@@ -127,6 +127,7 @@ export default class QueryBuilder extends React.Component {
             fields: '',
             operators: '',
             value: '',
+            valueList: '',
             removeRule: '',
 
         };

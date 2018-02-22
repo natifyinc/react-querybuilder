@@ -53,6 +53,7 @@ export default class Rule extends React.Component {
                             operator: operator,
                             value: value,
                             className: `rule-value ${classNames.value}`,
+                            classNameValueList: `rule-value ${classNames.valueList}`,
                             handleOnChange: this.onValueChanged,
                             level: level,
                             inputType: getInputType(field, operator || getOperators(field)[0].name),

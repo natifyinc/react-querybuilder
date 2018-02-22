@@ -2,14 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ValueEditor = (props) => {
-  const {field, operator, value, values, handleOnChange, title, inputType, valuesList} = props;
+  const {
+    field, operator, value, handleOnChange, title, inputType, valuesList,
+    className, classNameValueList,
+  } = props;
 
   if (operator === 'null' || operator === 'notNull') {
     return null;
   }
 
   if(inputType === 'select') {
-    return (<select>
+    return (<select className={classNameValueList}>
       {valuesList.map((value, index) => {
         return (<option key={index} value={value.value}>{value.text}</option>);
       })}
@@ -17,7 +20,8 @@ const ValueEditor = (props) => {
   }
 
   return (
-    <input type={inputType}
+    <input className={className}
+           type={inputType}
            value={value}
            title={title}
            onChange={e=>handleOnChange(e.target.value)} />

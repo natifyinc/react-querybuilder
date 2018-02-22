@@ -2747,6 +2747,7 @@ var QueryBuilder = function (_React$Component) {
                 fields: '',
                 operators: '',
                 value: '',
+                valueList: '',
                 removeRule: ''
 
             };
@@ -7394,6 +7395,7 @@ var Rule = function (_React$Component) {
                     operator: operator,
                     value: value,
                     className: 'rule-value ' + classNames.value,
+                    classNameValueList: 'rule-value ' + classNames.valueList,
                     handleOnChange: this.onValueChanged,
                     level: level,
                     inputType: getInputType(field, operator || getOperators(field)[0].name),
@@ -7492,11 +7494,12 @@ var ValueEditor = function ValueEditor(props) {
   var field = props.field,
       operator = props.operator,
       value = props.value,
-      values = props.values,
       handleOnChange = props.handleOnChange,
       title = props.title,
       inputType = props.inputType,
-      valuesList = props.valuesList;
+      valuesList = props.valuesList,
+      className = props.className,
+      classNameValueList = props.classNameValueList;
 
 
   if (operator === 'null' || operator === 'notNull') {
@@ -7504,10 +7507,9 @@ var ValueEditor = function ValueEditor(props) {
   }
 
   if (inputType === 'select') {
-    console.warn('XXX');
     return _react2.default.createElement(
       'select',
-      null,
+      { className: classNameValueList },
       valuesList.map(function (value, index) {
         return _react2.default.createElement(
           'option',
@@ -7518,7 +7520,8 @@ var ValueEditor = function ValueEditor(props) {
     );
   }
 
-  return _react2.default.createElement('input', { type: inputType,
+  return _react2.default.createElement('input', { className: className,
+    type: inputType,
     value: value,
     title: title,
     onChange: function onChange(e) {
