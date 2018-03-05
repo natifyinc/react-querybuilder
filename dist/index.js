@@ -1823,6 +1823,7 @@ var QueryBuilder = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            this.state.root = this.getInitialQuery();
             var _state = this.state,
                 _state$root = _state.root,
                 id = _state$root.id,

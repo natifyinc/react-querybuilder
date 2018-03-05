@@ -186,6 +186,7 @@ export default class QueryBuilder extends React.Component {
     }
 
     render() {
+        this.state.root = this.getInitialQuery();
         const {root: {id, rules, combinator}, schema} = this.state;
         const {translations} = this.props;
 
