@@ -2495,14 +2495,15 @@ var QueryBuilder = function (_React$Component) {
     }, {
         key: 'createRule',
         value: function createRule() {
-            var _state$schema = this.state.schema,
-                fields = _state$schema.fields,
-                operators = _state$schema.operators;
+            var fields = this.state.schema.fields;
 
+            var field = fields[0].name;
+
+            var operators = this.props.getOperators(field);
 
             return {
                 id: 'r-' + (0, _v2.default)(),
-                field: fields[0].name,
+                field: field,
                 value: '',
                 operator: (operators[0] || {}).name
             };
