@@ -1932,7 +1932,12 @@ var QueryBuilder = function (_React$Component) {
         key: 'onPropChange',
         value: function onPropChange(prop, value, ruleId) {
             var rule = this._findRule(ruleId, this.state.root);
+
             Object.assign(rule, _defineProperty({}, prop, value));
+            if (prop == 'field') {
+                var newOperators = this.props.getOperators(value);
+                Object.assign(rule, { operator: (newOperators[0] || {}).name });
+            }
 
             this.setState({ root: this.state.root });
         }
