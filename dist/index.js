@@ -5646,7 +5646,9 @@ var ValueEditor = function ValueEditor(props) {
   if (inputType === 'select') {
     return _react2.default.createElement(
       'select',
-      { className: classNameValueList },
+      { className: classNameValueList, onChange: function onChange(e) {
+          return handleOnChange(e.target.value);
+        } },
       valuesList.map(function (value, index) {
         return _react2.default.createElement(
           'option',

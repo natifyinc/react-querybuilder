@@ -12,7 +12,7 @@ const ValueEditor = (props) => {
   }
 
   if(inputType === 'select') {
-    return (<select className={classNameValueList}>
+    return (<select className={classNameValueList} onChange={e=>handleOnChange(e.target.value)}>
       {valuesList.map((value, index) => {
         return (<option key={index} value={value.value}>{value.text}</option>);
       })}
