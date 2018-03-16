@@ -20,6 +20,23 @@ export default class RuleGroup extends React.Component {
           return (
             <div className={`ruleGroup ${classNames.ruleGroup}`}>
                 {
+                    rules.map(r=> {
+                        return (
+                            isRuleGroup(r)
+                                ? null
+                                : <Rule key={r.id}
+                                        id={r.id}
+                                        field={r.field}
+                                        value={r.value}
+                                        operator={r.operator}
+                                        schema={this.props.schema}
+                                        parentId={this.props.id}
+                                        translations={this.props.translations}
+                                        onRuleRemove={onRuleRemove}/>
+                        );
+                    })
+                }
+                {
                     React.createElement(controls.combinatorSelector,
                         {
                             options: combinators,
@@ -69,29 +86,21 @@ export default class RuleGroup extends React.Component {
                             }
                         ) : null
                 }
-                 {
-                     rules.map(r=> {
-                         return (
-                             isRuleGroup(r)
-                                 ? <RuleGroup key={r.id}
-                                              id={r.id}
-                                              schema={this.props.schema}
-                                              parentId={this.props.id}
-                                              combinator={r.combinator}
-                                              translations={this.props.translations}
-                                              rules={r.rules}/>
-                                 : <Rule key={r.id}
-                                         id={r.id}
-                                         field={r.field}
-                                         value={r.value}
-                                         operator={r.operator}
-                                         schema={this.props.schema}
-                                         parentId={this.props.id}
-                                         translations={this.props.translations}
-                                         onRuleRemove={onRuleRemove}/>
-                         );
-                     })
-                 }
+                {
+                    rules.map(r=> {
+                        return (
+                            isRuleGroup(r)
+                                ? <RuleGroup key={r.id}
+                                            id={r.id}
+                                            schema={this.props.schema}
+                                            parentId={this.props.id}
+                                            combinator={r.combinator}
+                                            translations={this.props.translations}
+                                            rules={r.rules}/>
+                                : null
+                        );
+                    })
+                }
             </div>
         );
     }

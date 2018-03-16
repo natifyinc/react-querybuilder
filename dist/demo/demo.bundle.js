@@ -7222,6 +7222,17 @@ var RuleGroup = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'ruleGroup ' + classNames.ruleGroup },
+                rules.map(function (r) {
+                    return isRuleGroup(r) ? null : _react2.default.createElement(_Rule2.default, { key: r.id,
+                        id: r.id,
+                        field: r.field,
+                        value: r.value,
+                        operator: r.operator,
+                        schema: _this2.props.schema,
+                        parentId: _this2.props.id,
+                        translations: _this2.props.translations,
+                        onRuleRemove: onRuleRemove });
+                }),
                 _react2.default.createElement(controls.combinatorSelector, {
                     options: combinators,
                     value: combinator,
@@ -7262,15 +7273,7 @@ var RuleGroup = function (_React$Component) {
                         parentId: _this2.props.id,
                         combinator: r.combinator,
                         translations: _this2.props.translations,
-                        rules: r.rules }) : _react2.default.createElement(_Rule2.default, { key: r.id,
-                        id: r.id,
-                        field: r.field,
-                        value: r.value,
-                        operator: r.operator,
-                        schema: _this2.props.schema,
-                        parentId: _this2.props.id,
-                        translations: _this2.props.translations,
-                        onRuleRemove: onRuleRemove });
+                        rules: r.rules }) : null;
                 })
             );
         }
