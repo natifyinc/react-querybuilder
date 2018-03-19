@@ -178,7 +178,11 @@ export default class QueryBuilder extends React.Component {
     }
 
     getInitialQuery() {
-        return this.props.query || this.createRuleGroup();
+        if(this.props.query) {
+            return cloneDeep(this.props.query);
+        } else {
+            return this.createRuleGroup();
+        }
     }
 
     componentDidMount() {

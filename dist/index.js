@@ -1813,7 +1813,11 @@ var QueryBuilder = function (_React$Component) {
     }, {
         key: 'getInitialQuery',
         value: function getInitialQuery() {
-            return this.props.query || this.createRuleGroup();
+            if (this.props.query) {
+                return (0, _cloneDeep2.default)(this.props.query);
+            } else {
+                return this.createRuleGroup();
+            }
         }
     }, {
         key: 'componentDidMount',
