@@ -7523,14 +7523,14 @@ var ValueEditor = function ValueEditor(props) {
   if (inputType === 'select') {
     return _react2.default.createElement(
       'select',
-      { className: classNameValueList, onChange: function onChange(e) {
+      { defaultValue: value, className: classNameValueList, onChange: function onChange(e) {
           return handleOnChange(e.target.value);
         } },
-      valuesList.map(function (value, index) {
+      valuesList.map(function (option, index) {
         return _react2.default.createElement(
           'option',
-          { key: index, value: value.value },
-          value.text
+          { key: index, value: option.value },
+          option.text
         );
       })
     );
