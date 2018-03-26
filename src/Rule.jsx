@@ -13,8 +13,8 @@ export default class Rule extends React.Component {
     }
 
     render() {
-        const {field, operator, value, translations, schema:
-            {fields, controls, getOperators, getInputType, getValuesList, getLevel, classNames}
+        const {field, operator, value, addon, translations, schema:
+            {fields, controls, getOperators, getAddons, showAddons, getInputType, getValuesList, getLevel, classNames}
         } = this.props;
         var level = getLevel(this.props.id);
 
@@ -28,6 +28,19 @@ export default class Rule extends React.Component {
                             value: field,
                             className: `rule-fields ${classNames.fields}`,
                             handleOnChange: this.onFieldChanged,
+                            level: level
+                        }
+                    )
+                }
+                { showAddons(field) &&
+                    React.createElement(controls.addonSelector,
+                        {
+                            field: field,
+                            title: translations.addons.title,
+                            options: getAddons(field),
+                            value: addon || getAddons(field)[0].name,
+                            className: `rule-addon ${classNames.addons}`,
+                            handleOnChange: this.onAddonChanged,
                             level: level
                         }
                     )
@@ -85,6 +98,10 @@ export default class Rule extends React.Component {
 
     onValueChanged = (value) => {
         this.onElementChanged('value', value);
+    }
+
+    onAddonChanged = (value) => {
+        this.onElementChanged('addon', value);
     }
 
     onElementChanged = (property, value) => {

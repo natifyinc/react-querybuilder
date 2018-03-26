@@ -64,6 +64,9 @@ export default class QueryBuilder extends React.Component {
             operators: {
                 title: "Operators",
             },
+            addons: {
+                title: "Addons",
+            },
             value: {
                 title: "Value",
             },
@@ -142,7 +145,8 @@ export default class QueryBuilder extends React.Component {
             combinatorSelector: ValueSelector,
             fieldSelector: ValueSelector,
             operatorSelector: ValueSelector,
-            valueEditor: ValueEditor
+            valueEditor: ValueEditor,
+            addonSelector: ValueSelector,
         };
     }
 
@@ -172,6 +176,8 @@ export default class QueryBuilder extends React.Component {
                 getOperators: (...args)=>this.getOperators(...args),
                 getInputType: (...args)=>this.getInputType(...args),
                 getValuesList: (...args)=>this.getValuesList(...args),
+                getAddons: (...args)=>this.getAddons(...args),
+                showAddons: (...args)=>this.showAddons(...args),
             }
         });
 
@@ -218,12 +224,14 @@ export default class QueryBuilder extends React.Component {
         const field = fields[0].name;
 
         const operators = this.props.getOperators(field);
+        const addons = this.props.getAddons(field);
 
         return {
             id: `r-${uniqueId()}`,
             field,
             value: '',
-            operator: (operators[0] || {}).name
+            operator: (operators[0] || {}).name,
+            addon: (addons[0] || {}).name,
         };
     }
 
@@ -244,6 +252,28 @@ export default class QueryBuilder extends React.Component {
         }
 
         return this.props.operators;
+    }
+
+    getAddons(field) {
+        if (this.props.getAddons) {
+            const ops = this.props.getAddons(field);
+            if (ops) {
+                return ops;
+            }
+        }
+
+        return this.props.addons;
+    }
+
+    showAddons(field) {
+        if (this.props.showAddons) {
+            const ops = this.props.showAddons(field);
+            if (ops) {
+                return ops;
+            }
+        }
+
+        return false;
     }
 
     getInputType(field, operator) {
@@ -284,6 +314,8 @@ export default class QueryBuilder extends React.Component {
 
     onPropChange(prop, value, ruleId) {
         const rule = this._findRule(ruleId, this.state.root);
+
+        console.log('onPropChange', prop, value);
 
         Object.assign(rule, {[prop]: value});
         if(prop == 'field') {

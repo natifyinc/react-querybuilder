@@ -1,24 +1,37 @@
 import uniqueId from 'uuid/v4';
 import React from 'react';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 
 const ValueSelector = (props) => {
   const {value, options, className, handleOnChange, title} = props;
 
-  return (
-    <select className={className}
-            value={value}
-            title={title}
-            onChange={e=>handleOnChange(e.target.value)}>
-      {
-        options.map(option=> {
-          return (
-            <option key={option.id || option.name} value={option.name}>{option.label}</option>
-          );
-        })
-      }
-    </select>
-  );
+  if(title !== 'Addons') {
+    return (
+      <select className={className}
+              value={value}
+              title={title}
+              onChange={e=>handleOnChange(e.target.value)}>
+        {
+          options.map(option=> {
+            return (
+              <option key={option.id || option.name} value={option.name}>{option.label}</option>
+            );
+          })
+        }
+      </select>
+    );
+  }
+  else {
+    const xValue = options.find(i => i.value.toString() == value)
+    return (<Select
+      name="addon-selector"
+      className={className}
+      value={xValue}
+      onChange={e=>handleOnChange(e.value)}
+      options={options}
+    />);
+  }
 }
 
 ValueSelector.displayName = 'ValueSelector';

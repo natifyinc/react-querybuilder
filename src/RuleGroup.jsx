@@ -23,11 +23,18 @@ export default class RuleGroup extends React.Component {
                     rules.map(r=> {
                         return (
                             isRuleGroup(r)
-                                ? null
+                                ? <RuleGroup key={r.id}
+                                    id={r.id}
+                                    schema={this.props.schema}
+                                    parentId={this.props.id}
+                                    combinator={r.combinator}
+                                    translations={this.props.translations}
+                                    rules={r.rules}/>
                                 : <Rule key={r.id}
                                         id={r.id}
                                         field={r.field}
                                         value={r.value}
+                                        addon={r.addon}
                                         operator={r.operator}
                                         schema={this.props.schema}
                                         parentId={this.props.id}
@@ -85,21 +92,6 @@ export default class RuleGroup extends React.Component {
                                 level: level
                             }
                         ) : null
-                }
-                {
-                    rules.map(r=> {
-                        return (
-                            isRuleGroup(r)
-                                ? <RuleGroup key={r.id}
-                                            id={r.id}
-                                            schema={this.props.schema}
-                                            parentId={this.props.id}
-                                            combinator={r.combinator}
-                                            translations={this.props.translations}
-                                            rules={r.rules}/>
-                                : null
-                        );
-                    })
                 }
             </div>
         );
