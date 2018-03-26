@@ -10942,17 +10942,10 @@ var RuleGroup = function (_React$Component) {
                 'div',
                 { className: 'ruleGroup ' + classNames.ruleGroup },
                 rules.map(function (r) {
-                    return isRuleGroup(r) ? _react2.default.createElement(RuleGroup, { key: r.id,
-                        id: r.id,
-                        schema: _this2.props.schema,
-                        parentId: _this2.props.id,
-                        combinator: r.combinator,
-                        translations: _this2.props.translations,
-                        rules: r.rules }) : _react2.default.createElement(_Rule2.default, { key: r.id,
+                    return isRuleGroup(r) ? null : _react2.default.createElement(_Rule2.default, { key: r.id,
                         id: r.id,
                         field: r.field,
                         value: r.value,
-                        addon: r.addon,
                         operator: r.operator,
                         schema: _this2.props.schema,
                         parentId: _this2.props.id,
@@ -10991,7 +10984,16 @@ var RuleGroup = function (_React$Component) {
                     handleOnClick: this.removeGroup,
                     rules: rules,
                     level: level
-                }) : null
+                }) : null,
+                rules.map(function (r) {
+                    return isRuleGroup(r) ? _react2.default.createElement(RuleGroup, { key: r.id,
+                        id: r.id,
+                        schema: _this2.props.schema,
+                        parentId: _this2.props.id,
+                        combinator: r.combinator,
+                        translations: _this2.props.translations,
+                        rules: r.rules }) : null;
+                })
             );
         }
     }, {
