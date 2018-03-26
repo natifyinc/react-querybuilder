@@ -23,13 +23,16 @@ const ValueSelector = (props) => {
     );
   }
   else {
-    const xValue = options.find(i => i.value.toString() == value)
+    const xValue = options.find(i => i.value.toString() === value);
+    const defaultValue = options.find(i => i.value.toString() === '');
     return (<Select
       name="addon-selector"
       className={className}
+      defaultValue={defaultValue}
       value={xValue}
       onChange={e=>handleOnChange(e.value)}
       options={options}
+      clearable={true}
     />);
   }
 }

@@ -6112,16 +6112,21 @@ var ValueSelector = function ValueSelector(props) {
     );
   } else {
     var xValue = options.find(function (i) {
-      return i.value.toString() == value;
+      return i.value.toString() === value;
+    });
+    var defaultValue = options.find(function (i) {
+      return i.value.toString() === '';
     });
     return _react2.default.createElement(_reactSelect2.default, {
       name: 'addon-selector',
       className: className,
+      defaultValue: defaultValue,
       value: xValue,
       onChange: function onChange(e) {
         return handleOnChange(e.value);
       },
-      options: options
+      options: options,
+      clearable: true
     });
   }
 };
