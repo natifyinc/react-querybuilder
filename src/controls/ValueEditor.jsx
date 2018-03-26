@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 
 const ValueEditor = (props) => {
   const {
@@ -12,11 +13,16 @@ const ValueEditor = (props) => {
   }
 
   if(inputType === 'select') {
-    return (<select defaultValue={value} className={classNameValueList} onChange={e=>handleOnChange(e.target.value)}>
-      {valuesList.map((option, index) => {
-        return (<option key={index} value={option.value}>{option.text}</option>);
-      })}
-    </select>);
+    const xValue = valuesList.find(i => i.value.toString() === value);
+
+    return (<Select
+      defaultValue={xValue}
+      Value={xValue}
+      className={classNameValueList}
+      onChange={e=>handleOnChange(e.value)}
+      options={valuesList}
+      clearable={true}
+    />);
   }
 
   return (
