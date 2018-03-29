@@ -15296,7 +15296,8 @@ var QueryBuilder = function (_React$Component) {
                 getInputType: _propTypes2.default.func,
                 onQueryChange: _propTypes2.default.func,
                 controlClassnames: _propTypes2.default.object,
-                translations: _propTypes2.default.object
+                translations: _propTypes2.default.object,
+                disableButtons: _propTypes2.default.bool
             };
         }
     }]);
@@ -15396,6 +15397,7 @@ var QueryBuilder = function (_React$Component) {
                 schema = _state.schema;
             var translations = this.props.translations;
 
+            this.state.schema.fields = this.props.fields;
 
             return _react2.default.createElement(
                 'div',
@@ -15406,7 +15408,8 @@ var QueryBuilder = function (_React$Component) {
                     combinator: combinator,
                     schema: schema,
                     id: id,
-                    parentId: null
+                    parentId: null,
+                    disableButtons: this.props.disableButtons
                 })
             );
         }
@@ -15522,8 +15525,6 @@ var QueryBuilder = function (_React$Component) {
         key: 'onPropChange',
         value: function onPropChange(prop, value, ruleId) {
             var rule = this._findRule(ruleId, this.state.root);
-
-            console.log('onPropChange', prop, value);
 
             Object.assign(rule, _defineProperty({}, prop, value));
             if (prop == 'field') {
@@ -20195,6 +20196,7 @@ var RuleGroup = function (_React$Component) {
                 combinator = _props.combinator,
                 rules = _props.rules,
                 translations = _props.translations,
+                disableButtons = _props.disableButtons,
                 _props$schema = _props.schema,
                 combinators = _props$schema.combinators,
                 controls = _props$schema.controls,
@@ -20235,7 +20237,7 @@ var RuleGroup = function (_React$Component) {
                     rules: rules,
                     level: level
                 }),
-                _react2.default.createElement(controls.addGroupAction, {
+                !disableButtons && _react2.default.createElement(controls.addGroupAction, {
                     label: translations.addGroup.label,
                     title: translations.addGroup.title,
                     className: 'ruleGroup-addGroup ' + classNames.addGroup,
@@ -20243,7 +20245,7 @@ var RuleGroup = function (_React$Component) {
                     rules: rules,
                     level: level
                 }),
-                this.hasParentGroup() ? _react2.default.createElement(controls.removeGroupAction, {
+                !disableButtons && this.hasParentGroup() ? _react2.default.createElement(controls.removeGroupAction, {
                     label: translations.removeGroup.label,
                     title: translations.removeGroup.title,
                     className: 'ruleGroup-remove ' + classNames.removeGroup,
@@ -20251,7 +20253,7 @@ var RuleGroup = function (_React$Component) {
                     rules: rules,
                     level: level
                 }) : null,
-                rules.map(function (r) {
+                !disableButtons && rules.map(function (r) {
                     return isRuleGroup(r) ? _react2.default.createElement(RuleGroup, { key: r.id,
                         id: r.id,
                         schema: _this2.props.schema,

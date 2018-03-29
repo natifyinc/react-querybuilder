@@ -13,7 +13,7 @@ export default class RuleGroup extends React.Component {
     }
 
     render() {
-        const { combinator, rules, translations, schema:
+        const { combinator, rules, translations, disableButtons, schema:
             {combinators, controls, onRuleRemove, isRuleGroup, getLevel, classNames},
         } = this.props;
         const level = getLevel(this.props.id);
@@ -61,7 +61,7 @@ export default class RuleGroup extends React.Component {
                         }
                     )
                 }
-                {
+                {!disableButtons &&
                     React.createElement(controls.addGroupAction,
                         {
                             label: translations.addGroup.label,
@@ -73,7 +73,7 @@ export default class RuleGroup extends React.Component {
                         }
                     )
                 }
-                {
+                {!disableButtons &&
                     this.hasParentGroup() ?
                         React.createElement(controls.removeGroupAction,
                             {
@@ -86,7 +86,7 @@ export default class RuleGroup extends React.Component {
                             }
                         ) : null
                 }
-                {
+                {!disableButtons &&
                     rules.map(r=> {
                         return (
                             isRuleGroup(r)

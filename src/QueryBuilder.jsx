@@ -42,7 +42,8 @@ export default class QueryBuilder extends React.Component {
             getInputType: PropTypes.func,
             onQueryChange: PropTypes.func,
             controlClassnames: PropTypes.object,
-            translations: PropTypes.object
+            translations: PropTypes.object,
+            disableButtons: PropTypes.bool,
         };
     }
 
@@ -199,6 +200,7 @@ export default class QueryBuilder extends React.Component {
         this.state.root = this.getInitialQuery();
         const {root: {id, rules, combinator}, schema} = this.state;
         const {translations} = this.props;
+        this.state.schema.fields = this.props.fields;
 
         return (
             <div className={`queryBuilder ${schema.classNames.queryBuilder}`}>
@@ -209,6 +211,7 @@ export default class QueryBuilder extends React.Component {
                     schema={schema}
                     id={id}
                     parentId={null}
+                    disableButtons={this.props.disableButtons}
                 />
             </div>
         );
@@ -314,8 +317,6 @@ export default class QueryBuilder extends React.Component {
 
     onPropChange(prop, value, ruleId) {
         const rule = this._findRule(ruleId, this.state.root);
-
-        console.log('onPropChange', prop, value);
 
         Object.assign(rule, {[prop]: value});
         if(prop == 'field') {
