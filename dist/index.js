@@ -9260,7 +9260,7 @@ var ValueEditor = function ValueEditor(props) {
 
   if (inputType === 'select') {
     var xValue = valuesList.find(function (i) {
-      return i.value.toString() === value;
+      return i.value.toString() === value.toString();
     });
 
     return _react2.default.createElement(_reactSelect2.default, {
@@ -11621,7 +11621,10 @@ var ValueSelector = function ValueSelector(props) {
       options.map(function (option) {
         return _react2.default.createElement(
           'option',
-          { key: option.id || option.name, value: option.name },
+          {
+            key: option.value || option.id || option.name,
+            value: option.value || option.name
+          },
           option.label
         );
       })

@@ -13,7 +13,7 @@ const ValueEditor = (props) => {
   }
 
   if(inputType === 'select') {
-    const xValue = valuesList.find(i => i.value.toString() === value);
+    const xValue = valuesList.find(i => i.value.toString() === value.toString());
 
     return (<Select
       defaultValue={xValue}

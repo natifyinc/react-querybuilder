@@ -15,7 +15,12 @@ const ValueSelector = (props) => {
         {
           options.map(option=> {
             return (
-              <option key={option.id || option.name} value={option.name}>{option.label}</option>
+              <option
+                key={option.value || option.id || option.name}
+                value={option.value || option.name}
+              >
+                {option.label}
+              </option>
             );
           })
         }
