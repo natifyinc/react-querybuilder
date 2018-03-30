@@ -179,6 +179,7 @@ export default class QueryBuilder extends React.Component {
                 getValuesList: (...args)=>this.getValuesList(...args),
                 getAddons: (...args)=>this.getAddons(...args),
                 showAddons: (...args)=>this.showAddons(...args),
+                shouldBeDisabled: (...args)=>this.props.shouldBeDisabled(...args),
             }
         });
 
@@ -212,6 +213,7 @@ export default class QueryBuilder extends React.Component {
                     id={id}
                     parentId={null}
                     disableButtons={this.props.disableButtons}
+                    shouldBeDisabled={this.props.shouldBeDisabled}
                 />
             </div>
         );

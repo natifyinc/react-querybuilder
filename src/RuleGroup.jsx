@@ -32,6 +32,7 @@ export default class RuleGroup extends React.Component {
                                         schema={this.props.schema}
                                         parentId={this.props.id}
                                         translations={this.props.translations}
+                                        shouldBeDisabled={this.props.shouldBeDisabled}
                                         onRuleRemove={onRuleRemove}/>
                         );
                     })

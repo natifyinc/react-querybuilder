@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 
 const ValueSelector = (props) => {
-  const {value, options, className, handleOnChange, title} = props;
+  const {value, options, className, handleOnChange, title, shouldBeDisabled} = props;
 
+  const disabled = shouldBeDisabled ? shouldBeDisabled(value, title) : null;
   if(title !== 'Addons') {
     return (
       <select className={className}
               value={value}
               title={title}
+              disabled={disabled}
               onChange={e=>handleOnChange(e.target.value)}>
         {
           options.map(option=> {

@@ -15367,6 +15367,11 @@ var QueryBuilder = function (_React$Component) {
                     },
                     showAddons: function showAddons() {
                         return _this2.showAddons.apply(_this2, arguments);
+                    },
+                    shouldBeDisabled: function shouldBeDisabled() {
+                        var _props2;
+
+                        return (_props2 = _this2.props).shouldBeDisabled.apply(_props2, arguments);
                     }
                 }
             });
@@ -15409,7 +15414,8 @@ var QueryBuilder = function (_React$Component) {
                     schema: schema,
                     id: id,
                     parentId: null,
-                    disableButtons: this.props.disableButtons
+                    disableButtons: this.props.disableButtons,
+                    shouldBeDisabled: this.props.shouldBeDisabled
                 })
             );
         }
@@ -20218,6 +20224,7 @@ var RuleGroup = function (_React$Component) {
                         schema: _this2.props.schema,
                         parentId: _this2.props.id,
                         translations: _this2.props.translations,
+                        shouldBeDisabled: _this2.props.shouldBeDisabled,
                         onRuleRemove: onRuleRemove });
                 }),
                 _react2.default.createElement(controls.combinatorSelector, {
@@ -20370,7 +20377,6 @@ var Rule = function (_React$Component) {
                 classNames = _props$schema.classNames;
 
             var level = getLevel(this.props.id);
-
             return _react2.default.createElement(
                 'div',
                 { className: 'rule ' + classNames.rule },
@@ -20380,7 +20386,8 @@ var Rule = function (_React$Component) {
                     value: field,
                     className: 'rule-fields ' + classNames.fields,
                     handleOnChange: this.onFieldChanged,
-                    level: level
+                    level: level,
+                    shouldBeDisabled: this.props.shouldBeDisabled
                 }),
                 showAddons(field) && _react2.default.createElement(controls.addonSelector, {
                     field: field,
@@ -32548,15 +32555,18 @@ var ValueSelector = function ValueSelector(props) {
       options = props.options,
       className = props.className,
       handleOnChange = props.handleOnChange,
-      title = props.title;
+      title = props.title,
+      shouldBeDisabled = props.shouldBeDisabled;
 
 
+  var disabled = shouldBeDisabled ? shouldBeDisabled(value, title) : null;
   if (title !== 'Addons') {
     return _react2.default.createElement(
       'select',
       { className: className,
         value: value,
         title: title,
+        disabled: disabled,
         onChange: function onChange(e) {
           return handleOnChange(e.target.value);
         } },

@@ -17,7 +17,6 @@ export default class Rule extends React.Component {
             {fields, controls, getOperators, getAddons, showAddons, getInputType, getValuesList, getLevel, classNames}
         } = this.props;
         var level = getLevel(this.props.id);
-
         return (
             <div className={`rule ${classNames.rule}`}>
                 {
@@ -28,7 +27,8 @@ export default class Rule extends React.Component {
                             value: field,
                             className: `rule-fields ${classNames.fields}`,
                             handleOnChange: this.onFieldChanged,
-                            level: level
+                            level: level,
+                            shouldBeDisabled: this.props.shouldBeDisabled,
                         }
                     )
                 }
@@ -41,7 +41,7 @@ export default class Rule extends React.Component {
                             value: addon || getAddons(field)[0].name,
                             className: `rule-addon ${classNames.addons}`,
                             handleOnChange: this.onAddonChanged,
-                            level: level
+                            level: level,
                         }
                     )
                 }
