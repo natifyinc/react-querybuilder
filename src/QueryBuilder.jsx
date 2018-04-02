@@ -322,8 +322,9 @@ export default class QueryBuilder extends React.Component {
 
         Object.assign(rule, {[prop]: value});
         if(prop == 'field') {
-            const newOperators = this.props.getOperators(value);
-            Object.assign(rule, {operator: (newOperators[0] || {}).name, value: ''});
+            const operator = (this.props.getOperators(value)[0] || {}).name;
+            const addon = (this.props.getAddons(value)[0] || {}).name;
+            Object.assign(rule, {operator, addon, value: ''});
         }
 
         this.setState({root: this.state.root});

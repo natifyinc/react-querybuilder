@@ -5580,8 +5580,9 @@ var QueryBuilder = function (_React$Component) {
 
             Object.assign(rule, _defineProperty({}, prop, value));
             if (prop == 'field') {
-                var newOperators = this.props.getOperators(value);
-                Object.assign(rule, { operator: (newOperators[0] || {}).name, value: '' });
+                var operator = (this.props.getOperators(value)[0] || {}).name;
+                var addon = (this.props.getAddons(value)[0] || {}).name;
+                Object.assign(rule, { operator: operator, addon: addon, value: '' });
             }
 
             this.setState({ root: this.state.root });
