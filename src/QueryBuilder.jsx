@@ -225,7 +225,7 @@ export default class QueryBuilder extends React.Component {
     }
 
     createRule() {
-        const {fields} = this.state.schema;
+        const {fields} = this.props;
         const field = fields[0].name;
 
         const operators = this.props.getOperators(field);

@@ -15427,7 +15427,7 @@ var QueryBuilder = function (_React$Component) {
     }, {
         key: 'createRule',
         value: function createRule() {
-            var fields = this.state.schema.fields;
+            var fields = this.props.fields;
 
             var field = fields[0].name;
 
@@ -20221,6 +20221,7 @@ var RuleGroup = function (_React$Component) {
                         field: r.field,
                         value: r.value,
                         operator: r.operator,
+                        addon: r.addon,
                         schema: _this2.props.schema,
                         parentId: _this2.props.id,
                         translations: _this2.props.translations,
@@ -32583,7 +32584,7 @@ var ValueSelector = function ValueSelector(props) {
     );
   } else {
     var xValue = options.find(function (i) {
-      return i.value.toString() === value;
+      return i.value.toString() === value.toString();
     });
     var defaultValue = options.find(function (i) {
       return i.value.toString() === '';
@@ -32594,7 +32595,7 @@ var ValueSelector = function ValueSelector(props) {
       defaultValue: defaultValue,
       value: xValue,
       onChange: function onChange(e) {
-        return handleOnChange(e.value);
+        handleOnChange(e.value);
       },
       options: options,
       clearable: true

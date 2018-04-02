@@ -29,6 +29,7 @@ export default class RuleGroup extends React.Component {
                                         field={r.field}
                                         value={r.value}
                                         operator={r.operator}
+                                        addon={r.addon}
                                         schema={this.props.schema}
                                         parentId={this.props.id}
                                         translations={this.props.translations}
