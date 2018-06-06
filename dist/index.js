@@ -9003,52 +9003,56 @@ var RuleGroup = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'ruleGroup ' + classNames.ruleGroup },
-                rules.map(function (r) {
-                    return isRuleGroup(r) ? null : _react2.default.createElement(_Rule2.default, { key: r.id,
-                        id: r.id,
-                        field: r.field,
-                        value: r.value,
-                        operator: r.operator,
-                        addon: r.addon,
-                        schema: _this2.props.schema,
-                        parentId: _this2.props.id,
-                        translations: _this2.props.translations,
-                        shouldBeDisabled: _this2.props.shouldBeDisabled,
-                        onRuleRemove: onRuleRemove });
-                }),
-                _react2.default.createElement(controls.combinatorSelector, {
-                    options: combinators,
-                    value: combinator,
-                    title: translations.combinators.title,
-                    className: 'ruleGroup-combinators ' + classNames.combinators,
-                    handleOnChange: this.onCombinatorChange,
-                    rules: rules,
-                    level: level
-                }),
-                _react2.default.createElement(controls.addRuleAction, {
-                    label: translations.addRule.label,
-                    title: translations.addRule.title,
-                    className: 'ruleGroup-addRule ' + classNames.addRule,
-                    handleOnClick: this.addRule,
-                    rules: rules,
-                    level: level
-                }),
-                !disableButtons && _react2.default.createElement(controls.addGroupAction, {
-                    label: translations.addGroup.label,
-                    title: translations.addGroup.title,
-                    className: 'ruleGroup-addGroup ' + classNames.addGroup,
-                    handleOnClick: this.addGroup,
-                    rules: rules,
-                    level: level
-                }),
-                !disableButtons && this.hasParentGroup() ? _react2.default.createElement(controls.removeGroupAction, {
-                    label: translations.removeGroup.label,
-                    title: translations.removeGroup.title,
-                    className: 'ruleGroup-remove ' + classNames.removeGroup,
-                    handleOnClick: this.removeGroup,
-                    rules: rules,
-                    level: level
-                }) : null,
+                _react2.default.createElement(
+                    'div',
+                    { className: 'rule-group-inner-wrapper' },
+                    rules.map(function (r) {
+                        return isRuleGroup(r) ? null : _react2.default.createElement(_Rule2.default, { key: r.id,
+                            id: r.id,
+                            field: r.field,
+                            value: r.value,
+                            operator: r.operator,
+                            addon: r.addon,
+                            combinator: combinator,
+                            schema: _this2.props.schema,
+                            parentId: _this2.props.id,
+                            translations: _this2.props.translations,
+                            shouldBeDisabled: _this2.props.shouldBeDisabled,
+                            onRuleRemove: onRuleRemove });
+                    }),
+                    _react2.default.createElement(controls.addRuleAction, {
+                        label: translations.addRule.label,
+                        title: translations.addRule.title,
+                        className: 'ruleGroup-addRule ' + classNames.addRule,
+                        handleOnClick: this.addRule,
+                        rules: rules,
+                        level: level
+                    }),
+                    !disableButtons && _react2.default.createElement(controls.addGroupAction, {
+                        label: translations.addGroup.label,
+                        title: translations.addGroup.title,
+                        className: 'ruleGroup-addGroup ' + classNames.addGroup,
+                        handleOnClick: this.addGroup,
+                        rules: rules,
+                        level: level
+                    }),
+                    !disableButtons && this.hasParentGroup() ? _react2.default.createElement(controls.removeGroupAction, {
+                        title: translations.removeGroup.title,
+                        className: 'ruleGroup-remove icon-trash ' + classNames.removeGroup,
+                        handleOnClick: this.removeGroup,
+                        rules: rules,
+                        level: level
+                    }) : null,
+                    _react2.default.createElement(controls.combinatorSelector, {
+                        options: combinators,
+                        value: combinator,
+                        title: translations.combinators.title,
+                        className: 'ruleGroup-combinators ' + classNames.combinators,
+                        handleOnChange: this.onCombinatorChange,
+                        rules: rules,
+                        level: level
+                    })
+                ),
                 !disableButtons && rules.map(function (r) {
                     return isRuleGroup(r) ? _react2.default.createElement(RuleGroup, { key: r.id,
                         id: r.id,
@@ -9154,6 +9158,7 @@ var Rule = function (_React$Component) {
                 value = _props.value,
                 addon = _props.addon,
                 translations = _props.translations,
+                combinator = _props.combinator,
                 _props$schema = _props.schema,
                 fields = _props$schema.fields,
                 controls = _props$schema.controls,
@@ -9208,10 +9213,14 @@ var Rule = function (_React$Component) {
                     inputType: getInputType(field, operator || getOperators(field)[0].name),
                     valuesList: getValuesList(field)
                 }),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'react-query-builder-rule-combinator' },
+                    combinator
+                ),
                 _react2.default.createElement(controls.removeRuleAction, {
-                    label: translations.removeRule.label,
                     title: translations.removeRule.title,
-                    className: 'rule-remove ' + classNames.removeRule,
+                    className: 'rule-remove icon-trash ' + classNames.removeRule,
                     handleOnClick: this.removeRule,
                     level: level
                 })
@@ -11693,7 +11702,7 @@ var ValueSelector = function ValueSelector(props) {
     );
   } else {
     var xValue = options.find(function (i) {
-      return i.value.toString() === value.toString();
+      return i.value.toString() === (value || '').toString();
     });
     var defaultValue = options.find(function (i) {
       return i.value.toString() === '';

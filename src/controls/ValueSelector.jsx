@@ -30,7 +30,7 @@ const ValueSelector = (props) => {
     );
   }
   else {
-    const xValue = options.find(i => i.value.toString() === value.toString());
+    const xValue = options.find(i => i.value.toString() === (value || '').toString());
     const defaultValue = options.find(i => i.value.toString() === '');
     return (<Select
       name="addon-selector"
