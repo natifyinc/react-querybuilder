@@ -19,6 +19,7 @@ export default class RuleGroup extends React.Component {
         const level = getLevel(this.props.id);
           return (
             <div className={`ruleGroup ${classNames.ruleGroup}`}>
+              <div className="rule-group-inner-wrapper">
                 {
                     rules.map(r=> {
                         return (
@@ -30,6 +31,7 @@ export default class RuleGroup extends React.Component {
                                         value={r.value}
                                         operator={r.operator}
                                         addon={r.addon}
+                                        combinator={combinator}
                                         schema={this.props.schema}
                                         parentId={this.props.id}
                                         translations={this.props.translations}
@@ -37,19 +39,6 @@ export default class RuleGroup extends React.Component {
                                         onRuleRemove={onRuleRemove}/>
                         );
                     })
-                }
-                {
-                    React.createElement(controls.combinatorSelector,
-                        {
-                            options: combinators,
-                            value: combinator,
-                            title: translations.combinators.title,
-                            className: `ruleGroup-combinators ${classNames.combinators}`,
-                            handleOnChange: this.onCombinatorChange,
-                            rules: rules,
-                            level: level
-                        }
-                    )
                 }
                 {
                     React.createElement(controls.addRuleAction,
@@ -79,15 +68,28 @@ export default class RuleGroup extends React.Component {
                     this.hasParentGroup() ?
                         React.createElement(controls.removeGroupAction,
                             {
-                                label: translations.removeGroup.label,
                                 title: translations.removeGroup.title,
-                                className: `ruleGroup-remove ${classNames.removeGroup}`,
+                                className: `ruleGroup-remove icon-trash ${classNames.removeGroup}`,
                                 handleOnClick: this.removeGroup,
                                 rules: rules,
                                 level: level
                             }
                         ) : null
                 }
+                {
+                    React.createElement(controls.combinatorSelector,
+                        {
+                            options: combinators,
+                            value: combinator,
+                            title: translations.combinators.title,
+                            className: `ruleGroup-combinators ${classNames.combinators}`,
+                            handleOnChange: this.onCombinatorChange,
+                            rules: rules,
+                            level: level
+                        }
+                    )
+                }
+              </div>
                 {!disableButtons &&
                     rules.map(r=> {
                         return (

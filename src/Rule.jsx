@@ -13,8 +13,9 @@ export default class Rule extends React.Component {
     }
 
     render() {
-        const {field, operator, value, addon, translations, schema:
-            {fields, controls, getOperators, getAddons, showAddons, getInputType, getValuesList, getLevel, classNames}
+        const {field, operator, value, addon, translations, combinator,
+          schema: {fields, controls, getOperators, getAddons, showAddons, getInputType,
+              getValuesList, getLevel, classNames}
         } = this.props;
         var level = getLevel(this.props.id);
         return (
@@ -32,7 +33,8 @@ export default class Rule extends React.Component {
                         }
                     )
                 }
-                { showAddons(field) &&
+                {
+                  showAddons(field) &&
                     React.createElement(controls.addonSelector,
                         {
                             field: field,
@@ -74,12 +76,14 @@ export default class Rule extends React.Component {
                         }
                     )
                 }
+                <div className='react-query-builder-rule-combinator'>
+                  {combinator}
+                </div>
                 {
                     React.createElement(controls.removeRuleAction,
                     {
-                        label: translations.removeRule.label,
                         title: translations.removeRule.title,
-                        className: `rule-remove ${classNames.removeRule}`,
+                        className: `rule-remove icon-trash ${classNames.removeRule}`,
                         handleOnClick: this.removeRule,
                         level: level
                     })
@@ -116,6 +120,4 @@ export default class Rule extends React.Component {
 
         this.props.schema.onRuleRemove(this.props.id, this.props.parentId);
     }
-
-
 }
